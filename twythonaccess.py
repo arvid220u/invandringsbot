@@ -2,12 +2,12 @@
 
 # import time, to enable the sleep function
 import time
-
 # Import twython
 from twython import Twython
-
 # import the api keys
 import apikeys
+# import threading, to schedule the reset
+from threading import Timer
 
 
 
@@ -28,7 +28,10 @@ def send_tweet(tweet, in_reply_to_status_id=0):
     global screen_name
     
     # send tweet
-    check_if_requests_are_maximum(13)
+    if check_if_requests_are_maximum(14):
+        # if requests are maximum, then return directly
+        # this is to not build up a queue in massinvandring_streamer
+        return
     # maybe send it in reply to another tweet
     if in_reply_to_status_id == 0:
         # standalone tweet
@@ -42,14 +45,24 @@ def send_tweet(tweet, in_reply_to_status_id=0):
 # Store number of requests, so that they won't exceed the rate limit
 requests_since_last_sleep = 0
 # This method is called every time a request is to be made
-# If the requests variable is over limit, then it sleeps for 16 minutes
+# If the requests variable is over limit, the it returns true
+# it also sets the bool is_sleeping
+# finally, it schedules the bool to be set to false and the requests to be reset after 16 minutess
 # if the requests variable isn't over limit, then do nothing
 def sleep_if_requests_are_maximum(limit):
     global requests_since_last_sleep
     print("Requests since last sleep: " + str(requests_since_last_sleep))
     if requests_since_last_sleep >= limit:
-        print("will sleep")
-        time.sleep(16*60)
-        print("has slept")
-        # reset requests
-        requests_since_last_sleep = 0
+        # set the is_sleeping to true
+        if not is_sleeping:
+            is_sleeping = True
+            # delay for 16 minutes
+            Timer(16*60, reset_requests).start()
+        return True
+    return False
+
+
+# this function resets the requests
+def reset_requests():
+    requests_since_last_sleep = 0
+    is_sleeping = False
