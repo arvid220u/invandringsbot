@@ -8,12 +8,20 @@ from twython import Twython
 import apikeys
 # import threading, to schedule the reset
 from threading import Timer
+# import datetime
+from datetime import datetime
 
 
 
+# time of ast request is used to be able to reset the requests,
+# if more than 16 minutes have elapsed between the requests
+# get the utc time to not be bothered by summer time
+time_of_last_request = datetime.utcnow()
 
 # The api variable is the way to access the api
 def authorize():
+    # if more than 16 minutes have elapsed since last request, the requests can be reset
+    check_if_requests_can_be_reset()
     # Increment number of requests made
     global requests_since_last_sleep
     requests_since_last_sleep += 1
@@ -49,7 +57,7 @@ requests_since_last_sleep = 0
 # it also sets the bool is_sleeping
 # finally, it schedules the bool to be set to false and the requests to be reset after 16 minutess
 # if the requests variable isn't over limit, then do nothing
-def sleep_if_requests_are_maximum(limit):
+def check_if_requests_are_maximum(limit):
     global requests_since_last_sleep
     print("Requests since last sleep: " + str(requests_since_last_sleep))
     if requests_since_last_sleep >= limit:
@@ -60,6 +68,19 @@ def sleep_if_requests_are_maximum(limit):
             Timer(16*60, reset_requests).start()
         return True
     return False
+
+
+# if more than 16 minutes hace elapsed since the last request, reset the requests
+def check_if_requests_can_be_reset():
+    # use utctime to not have to care about summer time
+    now_time = datetime.utcnow()
+    # compare the now_time and last time
+    # if more than 16 minutes have elapsed, reset the requests
+    if (now_time - time_of_last_request).total_seconds() > 16*60:
+        # reset requests
+        requests_since_last_sleep = 0
+    # update the last time
+    now_time = time_of_last_request
 
 
 # this function resets the requests

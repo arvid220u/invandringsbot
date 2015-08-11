@@ -1,7 +1,9 @@
 # Import the twython module
 import twythonaccess
-# import fastreplystreamer
+# import the streamer
 from massinvandring_streamer import MassinvandringStreamer
+# import the apikeys to be able to authenticate
+import apikeys
 
 
 # the main function will be called when this script is called in terminal
@@ -9,7 +11,7 @@ from massinvandring_streamer import MassinvandringStreamer
 def main():
     # start the streamer, and detect for instances of massinvandring in all Swedish tweets
     streamer = MassinvandringStreamer(apikeys.CONSUMER_KEY, apikeys.CONSUMER_SECRET, apikeys.ACCESS_TOKEN, apikeys.ACCESS_TOKEN_SECRET)
-    streamer.statuses.filter(track = "massinvandring", language = "sv")
+    streamer.statuses.filter(track = "massinvandring,massinvandringen", language = "sv")
 
 
 # if called directly (as in "python3 mainbot.py"), then call main() function
