@@ -1,7 +1,7 @@
 # the MassinvandringStreamer is a subclass of TwythonStreamer
 from twython import TwythonStreamer
 # import twythonaccess, to be able to send tweets
-import twythonaccess
+from . import twythonaccess
 # import regex, to be able to filter out sarcastic tweets
 import re
 

@@ -5,7 +5,7 @@ import time
 # Import twython
 from twython import Twython
 # import the api keys
-import apikeys
+from . import apikeys
 # import threading, to schedule the reset
 from threading import Timer
 # import datetime

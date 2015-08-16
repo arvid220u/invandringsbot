@@ -1,9 +1,9 @@
 # Import the twython module
-import twythonaccess
+from . import twythonaccess
 # import the streamer
-from massinvandring_streamer import MassinvandringStreamer
+from .massinvandring_streamer import MassinvandringStreamer
 # import the apikeys to be able to authenticate
-import apikeys
+from . import apikeys
 
 
 # the main function will be called when this script is called in terminal
