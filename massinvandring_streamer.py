@@ -1,7 +1,9 @@
 # the MassinvandringStreamer is a subclass of TwythonStreamer
 from twython import TwythonStreamer
 # import twythonaccess, to be able to send tweets
-from . import twythonaccess
+import twythonaccess
+# import the setup file with the trigger word and rant
+import setup
 # import regex, to be able to filter out sarcastic tweets
 import re
 
@@ -17,22 +19,15 @@ class MassinvandringStreamer(TwythonStreamer):
         # generate a reply
         # first check so massinvandring isn't in quotes
         # this is to remove tweets that aren't genuinely xenophobic
-        if re.search(r'["\'›‹»«]massinvandring\w*["\'›‹»«]', tweet["text"]):
+        if re.search(r'["\'›‹»«]' + setup.trigger_word + r'\w*["\'›‹»«]', tweet["text"]):
             return
         # if tweet is from self, return here
-        if tweet["user"]["screen_name"] == twythonaccess.screen_name:
+        if tweet["user"]["screen_name"] == setup.screen_name:
             return
         if tweet["user"]["id"] in self.replied_to_users:
             return
         # user isn't being obviously ironic or critical
-        replies = ["Tänk om du varit född i Syrien. Eller i Afghanistan. Varför inte Irak.",
-                "Du hade fått välja mellan att ta med din familj på en livsfarlig resa till ett bättre liv, eller riskera bli dödad.",
-                "Du hade valt det senare, för du hade älskat din familj och dina barn.",
-                "Du hade med mycket möda lyckats ta dig till Sverige. Puh, barnen lever!",
-                "Så blir du bemött av dig själv, i det som du trodde var det öppna Sverige.",
-                '"Jag hade turen att födas här, och jag är rädd att jag ska få det lite sämre om jag hjälper dig. Tillbaka till döden!"',
-                "Grattis till att i verkligheten vara född i Sverige. Du hade turen som endast 1 på 1250 har.", 
-                "Dela nu med dig av din tur till andra, för de har lika stor rätt till den som du. Tänk om, tänk rätt."]
+        replies = setup.rant
         for index, reply in enumerate(replies):
             replies[index] = "@" + tweet["user"]["screen_name"] + " " + reply
         #reply = "@" + tweet["user"]["screen_name"] + " Jag rekommenderar följande rapport från OECD på ämnet: http://oecd.org/migration/mig/OECD%20Migration%20Policy%20Debates%20Numero%202.pdf. Deras slutsats: massinvandring är bra. Läs!"
