@@ -13,7 +13,7 @@ It's not only Swedes who are in need of a rant about our moral responsibilities.
 
 It's simple to do.
 
-1. Clone this repository.
+1. Fork this repository.
 2. Rename the `apikeys_template.py` file to `apikeys.py`, and add your Twitter API keys as obtained from apps.twitter.com.
 3. Open the `setup.py` file. Fill in your trigger word, rant, and the Twitter handle of the bot.
 4. Finished setup! Now, start invandringsbot by calling `python3 mainbot.py`, when in the correct directory in your terminal.
