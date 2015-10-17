@@ -1,2 +1,2 @@
 # invandringsbot
-When people refuse that immigration is beneficial for the economy on Twitter, this bot replies with the facts. All in Swedish.
+When people post ignorant tweets about immigration, this bot replies with a rant about the moral responsibility we all have to welcome refugees. (In Swedish.)
