@@ -16,7 +16,7 @@ It's simple to do.
 1. Clone this repository.
 2. Rename the `apikeys_template.py` file to `apikeys.py`, and add your Twitter API keys as obtained from apps.twitter.com.
 3. Open the `setup.py` file. Fill in your trigger word, rant, and the Twitter handle of the bot.
-4. Finished setup! Now, start invandringsbot by calling `python3 mainbot.py`, when in the correct directory in your terminal. (Remember that you have to have python 3 installed.)
+4. Finished setup! Now, start invandringsbot by calling `python3 mainbot.py`, when in the correct directory in your terminal.
 
 ## Dependencies
 
