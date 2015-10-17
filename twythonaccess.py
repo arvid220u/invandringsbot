@@ -5,11 +5,13 @@ import time
 # Import twython
 from twython import Twython
 # import the api keys
-from . import apikeys
+import apikeys
 # import threading, to schedule the reset
 from threading import Timer
 # import datetime
 from datetime import datetime
+# import setup to get the screen name
+import setup
 
 
 
@@ -28,12 +30,8 @@ def authorize():
     # authorize
     return Twython(apikeys.CONSUMER_KEY, apikeys.CONSUMER_SECRET, apikeys.ACCESS_TOKEN, apikeys.ACCESS_TOKEN_SECRET)
 
-# the screen name for self
-screen_name = "invandringgarna"
-
 # this method sends a tweet, by first checking with me
 def send_tweet(tweet, in_reply_to_status_id=0):
-    global screen_name
     
     # send tweet
     if check_if_requests_are_maximum(14):
@@ -50,7 +48,6 @@ def send_tweet(tweet, in_reply_to_status_id=0):
     print("sent tweet: " + tweet)
 
 def send_rant(tweets, in_reply_to_status_id=0):
-    global screen_name
 
     # send tweets with an interval of 30 secoonds
 
@@ -75,7 +72,7 @@ def send_rant(tweets, in_reply_to_status_id=0):
         # sleep for 30 seconds
         time.sleep(20)
         # get the status ad of the newly sent tweet
-        last_status_id = authorize().get_user_timeline(screen_name=screen_name, count=1, trim_user=True, exclude_replies=False)[0]["id"]
+        last_status_id = authorize().get_user_timeline(screen_name=setup.screen_name, count=1, trim_user=True, exclude_replies=False)[0]["id"]
     
     # return true, since the rant was successfully sent
     return True
