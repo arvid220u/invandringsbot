@@ -3,9 +3,11 @@
 # The Twitter handle of the bot.
 screen_name = "invandringgarna"
 
-# Each word that contains this trigger word will be replied to.
+# Each word that contains any of these trigger words will be replied to.
 # Note that indicated sarcastic uses of the word (in quotes) will trigger a rant.
-trigger_word = "massinvandring"
+# Each trigger word should be separated by a comma, without a space.
+# Don't use too many or too broad words, as that will generate too many tweets.
+trigger_words = "massinvandring,massinvandringen"
 
 # The rant to reply to each user that has tweeted the trigger word with.
 # No more than 15 tweets are allowed, due to the rate limits of the Twitter API.
