@@ -61,7 +61,7 @@ def send_rant(tweets, in_reply_to_status_id=0):
         return False
 
     # wait for 5 minutes to be more life-like
-    sleep(5*60)
+    time.sleep(5*60)
     
     last_status_id = in_reply_to_status_id
     for tweet in tweets:
@@ -73,7 +73,9 @@ def send_rant(tweets, in_reply_to_status_id=0):
             authorize().update_status(status=tweet, in_reply_to_status_id=last_status_id)
         print("sent tweet: " + tweet)
         # sleep for 30 seconds
-        sleep(30)
+        time.sleep(20)
+        # get the status ad of the newly sent tweet
+        last_status_id = authorize().get_user_timeline(screen_name=screen_name, count=1, trim_user=True, exclude_replies=False)[0]["id"]
     
     # return true, since the rant was successfully sent
     return True
