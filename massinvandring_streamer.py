@@ -38,7 +38,7 @@ class MassinvandringStreamer(TwythonStreamer):
         #reply = "@" + tweet["user"]["screen_name"] + " Jag rekommenderar följande rapport från OECD på ämnet: http://oecd.org/migration/mig/OECD%20Migration%20Policy%20Debates%20Numero%202.pdf. Deras slutsats: massinvandring är bra. Läs!"
         # try to send the reply (not guaranteed)
         if twythonaccess.send_rant(tweets = replies, in_reply_to_status_id = tweet["id"]):
-            replied_to_users.append(tweet["user"]["id"])
+            self.replied_to_users.append(tweet["user"]["id"])
             
 
 
