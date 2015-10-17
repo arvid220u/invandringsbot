@@ -49,6 +49,35 @@ def send_tweet(tweet, in_reply_to_status_id=0):
         authorize().update_status(status=tweet, in_reply_to_status_id=in_reply_to_status_id)
     print("sent tweet: " + tweet)
 
+def send_rant(tweets, in_reply_to_status_id=0):
+    global screen_name
+
+    # send tweets with an interval of 30 secoonds
+
+    # if requests are above maximum minus number of tweets, then return directly
+    # either the entire rant will be sent, or no rant at all
+    if check_if_requests_are_maximum(15-len(tweets)):
+        # return false, so the caller will know that the rant wasn't sent this time
+        return False
+
+    # wait for 5 minutes to be more life-like
+    sleep(5*60)
+    
+    last_status_id = in_reply_to_status_id
+    for tweet in tweets:
+        if last_status_id == 0:
+            # standalone tweet
+            authorize().update_status(status=tweet)
+        else:
+            # tweet is a reply
+            authorize().update_status(status=tweet, in_reply_to_status_id=last_status_id)
+        print("sent tweet: " + tweet)
+        # sleep for 30 seconds
+        sleep(30)
+    
+    # return true, since the rant was successfully sent
+    return True
+
 
 # Store number of requests, so that they won't exceed the rate limit
 requests_since_last_sleep = 0
