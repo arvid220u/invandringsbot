@@ -5,7 +5,7 @@ When people post ignorant tweets about immigration, this bot replies with a rant
 
 Whenever anyone tweets a tweet containing a certain trigger word or phrase, invandringsbot will reply with a rant.
 
-In this specific, original implementation of invandringsbot, the trigger word is "massinvandring" (Swedish for "mass immigration") and the rant is about the moral responsibility we have to welcome refugees (also in Swedish). By all means, the trigger word can be anything, as can the rant be.
+In this specific, original implementation of invandringsbot, the trigger word is "massinvandring" (Swedish for "mass immigration") and the rant is about the moral responsibility we have to welcome refugees (also in Swedish). However, the trigger word can be anything, as can the rant be.
 
 ## Translate into your language!
 
