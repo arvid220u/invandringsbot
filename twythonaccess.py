@@ -80,7 +80,8 @@ def send_rant(tweets, in_reply_to_status_id=0):
     # return true, since the rant was successfully sent
     return True
 
-
+# not sleeping by default
+is_sleeping = False
 # Store number of requests, so that they won't exceed the rate limit
 requests_since_last_sleep = 0
 # This method is called every time a request is to be made
