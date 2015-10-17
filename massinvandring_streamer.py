@@ -19,8 +19,9 @@ class MassinvandringStreamer(TwythonStreamer):
         # generate a reply
         # first check so massinvandring isn't in quotes
         # this is to remove tweets that aren't genuinely xenophobic
-        if re.search(r'["\'›‹»«]' + setup.trigger_word + r'\w*["\'›‹»«]', tweet["text"]):
-            return
+        for trigger_word in setup.trigger_words.split(","):
+            if re.search(r'["\'›‹»«]' + trigger_word + r'\w*["\'›‹»«]', tweet["text"]):
+                return
         # if tweet is from self, return here
         if tweet["user"]["screen_name"] == setup.screen_name:
             return
