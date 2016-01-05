@@ -101,6 +101,7 @@ def check_if_requests_are_maximum(limit):
 
 # if more than 16 minutes hace elapsed since the last request, reset the requests
 def check_if_requests_can_be_reset():
+    global time_of_last_request, requests_since_last_sleep
     # use utctime to not have to care about summer time
     now_time = datetime.utcnow()
     # compare the now_time and last time
@@ -109,7 +110,7 @@ def check_if_requests_can_be_reset():
         # reset requests
         requests_since_last_sleep = 0
     # update the last time
-    now_time = time_of_last_request
+    time_of_last_request = now_time
 
 
 # this function resets the requests
